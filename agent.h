@@ -8,12 +8,10 @@ public:
 	void setValue(double);
 	void setLeftNeighbor(std::shared_ptr<agent>);
 	void setRightNeighbor(std::shared_ptr<agent>);
-
 	double getValue();
 	std::shared_ptr<agent> getLeftNeighbor();
 	std::shared_ptr<agent> getRightNeighbor();
-
-	double find_LocalAverage();
+	double findLocalAverage();
 
 
 private:

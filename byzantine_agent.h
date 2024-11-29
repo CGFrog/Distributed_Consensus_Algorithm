@@ -2,7 +2,5 @@
 #include "agent.h"
 
 class byzantine : public agent {
-	byzantine(double value) : agent(value){
-		
-	}
+	byzantine(double value) : agent(value){	}
 };
