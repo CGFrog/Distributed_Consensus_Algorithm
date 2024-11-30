@@ -25,6 +25,6 @@ private:
 	double globalAverage = 0;
 	std::vector<std::shared_ptr<agent>> system;
 	int randLower = 0;
-	int randHigher = 1000;
+	int randHigher = 100;
 	std::vector<std::thread> consensus;
 };

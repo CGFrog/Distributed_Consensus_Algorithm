@@ -11,7 +11,7 @@ int network::findRand() {
 	std::random_device rd; 
 	std::mt19937 generator(rd()); 
 	std::uniform_int_distribution<int> distribution(randLower, randHigher);
-	return distribution(generator);
+	return distribution(generator); // Simple random number generator, not the greatest but it will do for this project.
 }
 void network::initNodes(int agents) {
 	this->system.reserve(agents);
@@ -35,7 +35,7 @@ void network::initNodes(int agents) {
 
 void network::activateNetwork(int iterations) {
 	this->consensus.reserve(system.size());
-	std::barrier sync_point(system.size());
+	std::barrier sync_point(system.size()); // Asks each thread to wait until all threads are ready to start.
 	for (auto& sys : system) {
 		consensus.emplace_back(std::thread(&agent::findLocalAverage, sys, iterations, std::ref(sync_point)));
 	}

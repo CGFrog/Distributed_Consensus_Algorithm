@@ -6,14 +6,14 @@
 #include <cmath>
 
 int networkSize() {
-	bool invalidNS = true;
 	std::cout << "Enter network size between 3-50: " << std::endl;
-	while (invalidNS) {
+	while (true) {
 		std::string user_input;
 		std::getline(std::cin, user_input);
 		int network_size = stoi(user_input);
 		if (network_size>2 && network_size <= 50) return network_size;
 	}
+	return 3;
 }
 
 void runSimulation() {
