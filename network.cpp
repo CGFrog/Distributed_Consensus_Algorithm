@@ -1,9 +1,6 @@
 #include "network.h"
-#include <memory>
-#include <random>
-#include <iostream>
-#include <ctime>
-#include <chrono>
+
+
 
 network::network(int agents) {
 	this->agents = agents;
@@ -37,4 +34,27 @@ void network::initNodes(int agents) {
 		}
 	}
 	this->globalAverage = globalAverage / agents;
+}
+
+void network::activateNetwork(int duration) {
+	this->consensus.reserve(agents);
+	for (int i = 0; i < system.size(); i++) {
+		consensus.emplace_back(std::bind(& agent::findLocalAverage, system[i],50));
+		std::cout << system[i]->getValue() << std::endl;
+	}
+	deactivateNetwork();
+}
+
+void network::deactivateNetwork() {
+	for (int i = 0; i < consensus.size(); i++) {
+		consensus[i].join();
+	}
+}
+
+double network::calculateGlobalAvg() {
+	double globalAvgC = 0;
+	for (int i = 0; i < agents; i++) {
+		globalAvgC = system[i]->getValue() + globalAvgC;
+	}
+	return globalAvgC / agents;
 }

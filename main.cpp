@@ -16,15 +16,17 @@ int networkSize() {
 }
 
 int main() {
-	// Declare size of network. SG 1
-	// Create cyclic network with random values in user designated range.
+	// Declare size of network. SG 1 DONE
+	// Create cyclic network with random values in user designated range. DONE
 	// std::thread so that all nodes run concurrently. SG 2
 	// Achieve consensus. MVP Complete
 	// Introduce Byzantine Agent. SG 3
 	// Visual Element with SFML. SG 4
 
 	network network(networkSize());
-	std::cout << "The global average is " << network.getGlobalAvg();
-
+	double startAvg = network.getGlobalAvg();
+	std::cout << "The global average is " << startAvg;
+	network.activateNetwork(3);
+	std::cout << "Simulation Complete. New Global Average is " << network.calculateGlobalAvg() << std::endl;
 	return 0;
 }

@@ -1,6 +1,9 @@
 #pragma once
 #include "agent.h"
 #include <memory>
+#include <thread>
+#include <chrono>
+#include <functional>
 class agent {
 public:
 	agent() = default;
@@ -11,7 +14,7 @@ public:
 	double getValue();
 	std::shared_ptr<agent> getLeftNeighbor();
 	std::shared_ptr<agent> getRightNeighbor();
-	double findLocalAverage();
+	void findLocalAverage(int iter);
 
 
 private:

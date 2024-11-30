@@ -1,6 +1,12 @@
 #pragma once
 #include "agent.h"
 #include <vector>
+#include <memory>
+#include <random>
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <functional>
 class network {
 public:
 	network() = default;
@@ -9,10 +15,15 @@ public:
 	std::vector<agent*> getSystem();
 	int findRand();
 	double getGlobalAvg();
+	void activateNetwork(int);
+	void deactivateNetwork();
+	double calculateGlobalAvg();
+
 private:
 	int agents;
 	double globalAverage = 0;
 	std::vector<std::shared_ptr<agent>> system;
 	int randLower = 0;
 	int randHigher = 100;
+	std::vector<std::thread> consensus;
 };
