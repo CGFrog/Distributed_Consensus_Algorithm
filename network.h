@@ -7,10 +7,12 @@ public:
 	network(int);
 	void initNodes(int);
 	std::vector<agent*> getSystem();
+	int findRand();
+	double getGlobalAvg();
 private:
 	int agents;
 	double globalAverage = 0;
-	std::vector<agent*> system;
-	int LOWER = 0;
-	int HIGHER = 100;
+	std::vector<std::shared_ptr<agent>> system;
+	int randLower = 0;
+	int randHigher = 100;
 };
