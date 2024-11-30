@@ -4,6 +4,9 @@
 #include <thread>
 #include <chrono>
 #include <functional>
+#include <barrier>
+#include <mutex>
+#include <iostream>
 class agent {
 public:
 	agent() = default;
@@ -14,11 +17,12 @@ public:
 	double getValue();
 	std::shared_ptr<agent> getLeftNeighbor();
 	std::shared_ptr<agent> getRightNeighbor();
-	void findLocalAverage(int iter);
+	void findLocalAverage(int iter, std::barrier<>&);
 
 
 private:
 	double value;
+	std::mutex mtx;
 	std::shared_ptr<agent> leftNeighbor;
 	std::shared_ptr<agent> rightNeighbor;
 };

@@ -1,7 +1,5 @@
 #include "network.h"
 
-
-
 network::network(int agents) {
 	this->agents = agents;
 	initNodes(agents);
@@ -15,7 +13,6 @@ int network::findRand() {
 	std::uniform_int_distribution<int> distribution(randLower, randHigher);
 	return distribution(generator);
 }
-
 void network::initNodes(int agents) {
 	this->system.reserve(agents);
 	for (int i = 0; i < agents; i++) {
@@ -36,11 +33,11 @@ void network::initNodes(int agents) {
 	this->globalAverage = globalAverage / agents;
 }
 
-void network::activateNetwork(int duration) {
-	this->consensus.reserve(agents);
-	for (int i = 0; i < system.size(); i++) {
-		consensus.emplace_back(std::bind(& agent::findLocalAverage, system[i],50));
-		std::cout << system[i]->getValue() << std::endl;
+void network::activateNetwork(int iterations) {
+	this->consensus.reserve(system.size());
+	std::barrier sync_point(system.size());
+	for (auto& sys : system) {
+		consensus.emplace_back(std::thread(&agent::findLocalAverage, sys, iterations, std::ref(sync_point)));
 	}
 	deactivateNetwork();
 }
@@ -57,4 +54,11 @@ double network::calculateGlobalAvg() {
 		globalAvgC = system[i]->getValue() + globalAvgC;
 	}
 	return globalAvgC / agents;
+}
+
+void network::printNodeVals() {
+	for (auto i : system) {
+		std::cout << i->getValue() << " | ";
+	}
+	std::cout << std::endl;
 }
