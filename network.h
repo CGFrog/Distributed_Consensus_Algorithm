@@ -8,6 +8,7 @@
 #include <thread>
 #include <functional>
 #include <barrier>
+
 class network {
 public:
 	network() = default;
@@ -20,6 +21,7 @@ public:
 	double calculateGlobalAvg();
 	void printNodeVals();
 	void disableAgents();
+	std::vector<std::shared_ptr<agent>> get_distSystem();
 
 private:
 	int agents;

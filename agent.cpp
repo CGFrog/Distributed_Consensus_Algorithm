@@ -3,11 +3,12 @@
 agent::agent(double value) {setValue(value);}
 
 void agent::findLocalAverage(std::barrier<>& sync_point) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
     while(working){
         double newValue = (getLeftNeighbor()->getValue() + getRightNeighbor()->getValue() + getValue()) / 3;
         sync_point.arrive_and_wait(); // Arrive and wait signals to the thread that it needs to hold on until the other threads have finished their iterations.
         setValue(newValue);
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         sync_point.arrive_and_wait();
     }
 }

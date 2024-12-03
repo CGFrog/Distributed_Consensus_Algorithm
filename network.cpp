@@ -42,6 +42,8 @@ void network::activateNetwork() {
 	std::cout << "Here" << std::endl;
 }
 
+std::vector<std::shared_ptr<agent>> network::get_distSystem() {return system;}
+
 void network::disableAgents() {
 	for (int i = 0; i < system.size(); i++) {
 		//std::cout << "Disabled" << std::endl;
