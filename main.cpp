@@ -4,6 +4,8 @@
 #include "network.h"
 #include <string>
 #include <cmath>
+#include <SFML/Graphics.hpp>
+
 
 int networkSize() {
 	std::cout << "Enter network size between 3-50: " << std::endl;
@@ -21,7 +23,7 @@ void runSimulation() {
 	double startAvg = network.getGlobalAvg();
 	network.printNodeVals();
 	std::cout << "The global average is " << startAvg << std::endl;
-	network.activateNetwork(1000);
+	network.activateNetwork(10);
 	std::cout << "Simulation Complete." << std::endl;
 	network.printNodeVals();
 }
