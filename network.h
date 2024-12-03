@@ -15,16 +15,18 @@ public:
 	void initNodes(int);
 	int findRand();
 	double getGlobalAvg();
-	void activateNetwork(int);
+	void activateNetwork();
 	void deactivateNetwork();
 	double calculateGlobalAvg();
-	void printErrorRange();
 	void printNodeVals();
+	void disableAgents();
+
 private:
 	int agents;
 	double globalAverage = 0;
 	std::vector<std::shared_ptr<agent>> system;
 	int randLower = 0;
 	int randHigher = 100;
+	std::barrier<> barrier;
 	std::vector<std::thread> consensus;
 };

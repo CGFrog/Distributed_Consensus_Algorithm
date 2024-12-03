@@ -5,7 +5,7 @@
 #include <string>
 #include <cmath>
 #include <SFML/Graphics.hpp>
-
+#include "interface.h"
 
 int networkSize() {
 	std::cout << "Enter network size between 3-50: " << std::endl;
@@ -23,7 +23,7 @@ void runSimulation() {
 	double startAvg = network.getGlobalAvg();
 	network.printNodeVals();
 	std::cout << "The global average is " << startAvg << std::endl;
-	network.activateNetwork(10);
+	network.activateNetwork();
 	std::cout << "Simulation Complete." << std::endl;
 	network.printNodeVals();
 }
@@ -35,6 +35,7 @@ int main() {
 	// Achieve consensus. MVP Complete DONE
 	// Introduce Byzantine Agent. SG 3
 	// Visual Element with SFML. SG 4
-	runSimulation();
+	//runSimulation();
+	interface ui;
 	return 0;
 }

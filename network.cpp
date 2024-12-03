@@ -1,9 +1,9 @@
 #include "network.h"
 
-network::network(int agents) {
-	this->agents = agents;
+network::network(int agents) : agents(agents), barrier(agents) {
 	initNodes(agents);
 }
+
 double network::getGlobalAvg() {
 	return this->globalAverage;
 }
@@ -33,13 +33,20 @@ void network::initNodes(int agents) {
 	this->globalAverage = globalAverage / agents;
 }
 
-void network::activateNetwork(int iterations) {
+void network::activateNetwork() {
 	this->consensus.reserve(system.size());
-	std::barrier sync_point(system.size()); // Asks each thread to wait until all threads are ready to start.
 	for (auto& sys : system) {
-		consensus.emplace_back(std::thread(&agent::findLocalAverage, sys, iterations, std::ref(sync_point)));
+		std::cout << "thread created" << std::endl;
+		consensus.emplace_back(std::thread(&agent::findLocalAverage, sys, std::ref(barrier)));
 	}
-	deactivateNetwork();
+	std::cout << "Here" << std::endl;
+}
+
+void network::disableAgents() {
+	for (int i = 0; i < system.size(); i++) {
+		//std::cout << "Disabled" << std::endl;
+		system[i]->set_Working(false);
+	}
 }
 
 void network::deactivateNetwork() {

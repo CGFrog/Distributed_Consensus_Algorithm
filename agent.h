@@ -17,11 +17,14 @@ public:
 	double getValue();
 	std::shared_ptr<agent> getLeftNeighbor();
 	std::shared_ptr<agent> getRightNeighbor();
-	void findLocalAverage(int iter, std::barrier<>&);
-
-
+	void findLocalAverage(std::barrier<>&);
+	bool get_Working();
+	void set_Working(bool);
+	
 private:
 	double value;
+	bool working = true;
+
 	std::mutex mtx;
 	std::shared_ptr<agent> leftNeighbor;
 	std::shared_ptr<agent> rightNeighbor;
